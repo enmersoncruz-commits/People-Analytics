@@ -115,13 +115,25 @@ const CLIMATE_BARS = [
   { name: 'Remuneração', score: 68.99, type: 'Red' },
 ];
 
-// Logo Component
+// Logo Component - Stylized heart logo based on provided image
 const SantaCasaLogo = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 200 60" className={cn("fill-current", className)} xmlns="http://www.w3.org/2000/svg">
-    <path d="M20,10 L40,10 L40,30 L60,30 L60,10 L80,10 L80,50 L60,50 L60,40 L40,40 L40,50 L20,50 Z" fill="#ff0032" />
-    <text x="90" y="35" fontFamily="Inter" fontWeight="900" fontSize="22" fill="#323232">SANTA CASA</text>
-    <text x="90" y="52" fontFamily="Inter" fontWeight="500" fontSize="14" fill="#666">BELO HORIZONTE</text>
-  </svg>
+  <div className={cn("flex items-center gap-2", className)}>
+    <svg viewBox="0 0 100 100" className="h-full w-auto" xmlns="http://www.w3.org/2000/svg">
+      <path 
+        d="M50 20 C60 0 95 5 95 40 C95 70 50 95 50 95 C50 95 5 70 5 40 C5 5 40 0 50 20" 
+        fill="#ff0032" 
+      />
+      <path 
+        d="M35 45 Q50 35 65 45 Q50 55 35 45" 
+        fill="white" 
+        opacity="0.3"
+      />
+    </svg>
+    <div className="flex flex-col leading-none">
+      <span className="text-dark font-black text-xs md:text-sm uppercase tracking-tighter">Santa Casa</span>
+      <span className="text-[8px] md:text-[10px] text-light font-bold uppercase">Belo Horizonte</span>
+    </div>
+  </div>
 );
 
 // COMPONENTS
@@ -154,13 +166,13 @@ const SlideWrapper = ({ children, title, subtitle }: any) => (
     initial={{ opacity: 0, x: 20 }}
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: -20 }}
-    className="h-full flex flex-col p-8 md:p-12 overflow-hidden"
+    className="min-h-full flex flex-col p-4 md:p-12"
   >
-    <header className="mb-8 border-l-4 border-[#ff0032] pl-6">
-      <h2 className="text-3xl font-bold text-dark tracking-tight leading-tight">{title}</h2>
-      {subtitle && <p className="text-lg text-light font-medium">{subtitle}</p>}
+    <header className="mb-6 md:mb-8 border-l-4 border-[#ff0032] pl-4 md:pl-6">
+      <h2 className="text-2xl md:text-3xl font-bold text-dark tracking-tight leading-tight">{title}</h2>
+      {subtitle && <p className="text-sm md:text-lg text-light font-medium">{subtitle}</p>}
     </header>
-    <div className="flex-1 overflow-y-auto no-scrollbar pb-12">
+    <div className="flex-1 pb-12">
       {children}
     </div>
   </motion.div>
@@ -716,67 +728,67 @@ export default function App() {
   }, [currentSlide]);
 
   return (
-    <div className="fixed inset-0 bg-[#f4f7f6] flex flex-col font-sans selection:bg-[#ff0032] selection:text-white">
+    <div className="min-h-screen bg-[#f4f7f6] flex flex-col font-sans selection:bg-[#ff0032] selection:text-white">
       {/* Navigation Top Bar */}
-      <nav className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-8 z-50 shrink-0">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-[#ff0032] flex items-center justify-center rounded-lg shadow-lg">
-             <BarChart3 className="text-white" size={20} />
+      <nav className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 sticky top-0 z-50 shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-[#ff0032] flex items-center justify-center rounded-lg shadow-lg">
+             <BarChart3 className="text-white" size={18} />
           </div>
-          <div>
-            <span className="text-sm font-black text-dark uppercase tracking-tighter">People Analytics</span>
-            <span className="text-[10px] text-light uppercase font-bold px-2 border-l border-gray-200 ml-2">Q1 2026</span>
+          <div className="hidden sm:block">
+            <span className="text-xs md:text-sm font-black text-dark uppercase tracking-tighter block">People Analytics</span>
+            <span className="text-[8px] md:text-[10px] text-light uppercase font-bold">Q1 2026</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 bg-gray-50 p-1.5 rounded-full border border-gray-100">
+        <div className="flex items-center gap-1 bg-gray-50 p-1 rounded-full border border-gray-100">
           {Slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={cn(
-                "h-2 w-2 rounded-full transition-all duration-300",
-                currentSlide === idx ? "w-8 bg-[#ff0032]" : "bg-gray-300 hover:bg-gray-400"
+                "h-1.5 w-1.5 md:h-2 md:w-2 rounded-full transition-all duration-300",
+                currentSlide === idx ? "w-4 md:w-8 bg-[#ff0032]" : "bg-gray-300 hover:bg-gray-400"
               )}
             />
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-6">
-          <div className="text-right">
-             <span className="text-[10px] font-bold text-light block uppercase tracking-widest leading-none mb-1">Status</span>
-             <span className="text-xs font-black text-[#ff0032] italic">CONFIDENTIAL</span>
+        <div className="flex items-center gap-2 md:gap-6">
+          <div className="text-right hidden xs:block">
+             <span className="text-[8px] md:text-[10px] font-bold text-light block uppercase tracking-widest leading-none mb-1">Status</span>
+             <span className="text-[10px] md:text-xs font-black text-[#ff0032] italic">CONFIDENTIAL</span>
           </div>
-          <SantaCasaLogo className="h-10 w-auto" />
+          <SantaCasaLogo className="h-8 md:h-10 w-auto" />
         </div>
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1 relative overflow-hidden bg-white">
+      <main className="flex-1 relative bg-white">
         <AnimatePresence mode="wait">
-          <div key={currentSlide} className="h-full">
+          <div key={currentSlide} className="min-h-full">
             {Slides[currentSlide]()}
           </div>
         </AnimatePresence>
 
         {/* Floating Controls */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/80 backdrop-blur-xl border border-white/20 p-2 rounded-2xl shadow-2xl z-50">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 md:gap-4 bg-white/90 backdrop-blur-xl border border-gray-200 p-1.5 rounded-2xl shadow-2xl z-50">
           <button 
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className="p-3 text-dark hover:bg-gray-100 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="p-2 md:p-3 text-dark hover:bg-gray-100 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={20} md:size={24} />
           </button>
-          <div className="px-4 font-mono font-bold text-sm text-dark min-w-[60px] text-center border-x border-gray-100">
+          <div className="px-2 md:px-4 font-mono font-bold text-xs md:text-sm text-dark min-w-[50px] md:min-w-[60px] text-center border-x border-gray-100">
             {currentSlide + 1} / {Slides.length}
           </div>
           <button 
             onClick={nextSlide}
             disabled={currentSlide === Slides.length - 1}
-            className="p-3 text-dark hover:bg-gray-100 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="p-2 md:p-3 text-dark hover:bg-gray-100 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={20} md:size={24} />
           </button>
         </div>
       </main>
